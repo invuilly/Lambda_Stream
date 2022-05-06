@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Chapter10 {
@@ -14,18 +15,19 @@ public class Chapter10 {
         list.add(new Task(LocalDate.of(2021, 11, 9), "スクールの課題を解く", false));
 
       //未完了のタスクの個数を表示
-       long t =list.stream().filter(value -> ! value.isDone()).count();
-        System.out.println("未完了のタスクの個数は" + t);
+       long fal =list.stream().filter(value -> ! value.isDone()).count();
+        System.out.println("未完了のタスクの個数は" + fal);
 
         System.out.println("【未完了のタスクを昇順に並び替えて一覧表示】");
         
-       list.sort((o1,o2) -> o1.getDate().compareTo(o2.getDate()));
+      // list.sort((o1,o2) -> o1.getDate().compareTo(o2.getDate()));
        
-       for(int i = 0; i < t ; i++) {
-    	   System.out.println(list.get(i).getDate() + " " + list.get(i).getTask());
-       }
-      
-    }
+       // for(int i = 0; i < t ; i++) {
+    	 //  System.out.println(list.get(i).getDate() + " " + list.get(i).getTask());
+    //   }
+        list.stream().filter(t -> !t.isDone()).sorted((o1, o2) -> o1.getDate().compareTo(o2.getDate())).collect(Collectors.toList()).forEach(System.out::println);
+
+	}
 
 
 }
